@@ -1,4 +1,3 @@
-
 import asyncio
 import hashlib
 from abc import ABC
@@ -12,7 +11,6 @@ from tenacity import retry, stop_after_delay, wait_exponential
 
 from .exceptions import ApiRequestError
 from .typing import JsonResponse, QualityNumber, ResponseData
-from .wbisign import getWbiKeys, encWbi
 
 __all__ = 'AppApi', 'WebApi'
 
@@ -244,7 +242,6 @@ class AppApi(BaseApi):
 
 
 class WebApi(BaseApi):
-    img_key, sub_key = getWbiKeys() # 获取短时间内可用的 wbi_signkey (时效不确定) (已确认放在userinfo类会触发风控)
     async def room_init(self, room_id: int) -> ResponseData:
         path = '/room/v1/Room/room_init'
         params = {'id': room_id}
@@ -289,16 +286,7 @@ class WebApi(BaseApi):
 
     async def get_user_info(self, uid: int) -> ResponseData:
         path = '/x/space/wbi/acc/info'
-        # params = {'mid': uid}
-        img_key, sub_key = self.img_key, self.sub_key
-        params = encWbi(
-            params = {
-                'mid': uid
-            },
-            img_key=img_key,
-            sub_key=sub_key
-        )
-
+        params = {'mid': uid}
         json_res = await self._get_json(self.base_api_urls, path, params=params)
         return json_res['data']
 
@@ -312,4 +300,3 @@ class WebApi(BaseApi):
         path = '/x/web-interface/nav'
         json_res = await self._get_json(self.base_api_urls, path, check_response=False)
         return json_res
-
