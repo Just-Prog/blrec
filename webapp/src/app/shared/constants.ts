@@ -1,4 +1,5 @@
 export const QUALITY_NAME_MAPPING = {
+  25000: '原画(无二压)',
   20000: '4K',
   10000: '原画',
   401: '蓝光(杜比)',

@@ -192,7 +192,7 @@ class RecorderOptions(BaseModel):
 class RecorderSettings(RecorderOptions):
     stream_format: StreamFormat = 'flv'
     recording_mode: RecordingMode = 'standard'
-    quality_number: QualityNumber = 20000  # 4K, the highest quality.
+    quality_number: QualityNumber = 25000  # 原画无二压源
     fmp4_stream_timeout: int = 10
     read_timeout: int = 3
     disconnection_timeout: int = 600

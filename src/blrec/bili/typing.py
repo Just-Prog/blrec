@@ -7,6 +7,7 @@ ApiPlatform = Literal[
 ]
 
 QualityNumber = Literal[
+    25000,  # 原画(无二压) 概率出现
     20000,  # 4K
     10000,  # 原画
     401,    # 蓝光(杜比)
